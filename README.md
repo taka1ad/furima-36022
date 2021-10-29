@@ -1,24 +1,62 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column                | Type   | Options     |
+| --------------------- | ------ | ----------- |
+| nickname              | string | null: false |
+| email                 | string | null: false |
+| password              | string | null: false |
+| password_confirmation | string | null: false |
+| name                  | string | null: false |
+| name_kana             | string | null: false |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :buyers
 
-* Configuration
+## items テーブル
 
-* Database creation
+| Column            | Type   | Options     |
+| ----------------- | ------ | ----------- |
+| image             | string | null: false |
+| name              | string | null: false |
+| explanation       | string | null: false |
+| category          | string | null: false |
+| condition         | string | null: false |
+| delivery_charge   | string | null: false |
+| delivery_area     | string | null: false |
+| price_text        | string | null: false |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- belongs_to :users
+- belongs_to :buyers
 
-* Services (job queues, cache servers, search engines, etc.)
+## buyers テーブル
 
-* Deployment instructions
+| Column       | Type       | Options                        |
+| ------------ | ---------- | ------------------------------ |
+| buyer_id     | references | null: false, foreign_key: true |
+| buyer_item   | references | null: false, foreign_key: true |
 
-* ...
+### Association
+
+- has_many :users
+- has_many :addresses
+
+## addresses テーブル
+
+| Column        | Type       | Options                        |
+| ------------- | ---------- | ------------------------------ |
+| postal_code   | string     |                                |
+| prefectures   | references | null: false, foreign_key: true |
+| manicipality  | references | null: false, foreign_key: true |
+| house_number  | references | null: false, foreign_key: true |
+| building_name | references | null: false, foreign_key: true |
+| phone_number  | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :buyers
