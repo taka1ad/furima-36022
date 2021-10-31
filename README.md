@@ -28,7 +28,7 @@
 | condition_id       | integer | null: false |
 | delivery_charge_id | integer | null: false |
 | delivery_area_id   | integer | null: false |
-| delivery_days_id   | integer | null: false |
+| delivery_day_id    | integer | null: false |
 | price              | integer | null: false |
 
 ### Association
@@ -51,15 +51,15 @@
 
 ## addresses テーブル
 
-| Column         | Type        | Options                        |
-| -------------- | -------     | ------------------------------ |
-| postal_code    | string      | null: false                    |
-| prefectures_id | integer     | null: false                    |
-| manicipality   | string      | null: false                    |
-| house_number   | string      | null: false                    |
-| building_name  | string      |                                |
-| phone_number   | string      | null: false                    |
-| buyer          | references  | null: false, foreign_key: true |
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| postal_code      | string     | null: false                    |
+| delivery_area_id | integer    | null: false                    |
+| manicipality     | string     | null: false                    |
+| house_number     | string     | null: false                    |
+| building_name    | string     |                                |
+| phone_number     | string     | null: false                    |
+| buyer            | references | null: false, foreign_key: true |
 
 ### Association
 
