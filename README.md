@@ -6,36 +6,35 @@
 | --------------------- | ------ | ----------- |
 | nickname              | string | null: false |
 | email                 | string | null: false |
-| password              | string | null: false |
-| password_confirmation | string | null: false |
+| encrypted_password    | string | null: false |
 | first_name            | string | null: false |
 | last_name             | string | null: false |
 | first_name_kana       | string | null: false |
 | last_name_kana        | string | null: false |
-| birthday              | string | null: false |
+| birthday              | date   | null: false |
 
 ### Association
 
 - has_many :items
-- has_many :buyer
+- has_many :buyers
 
 ## items テーブル
 
-| Column            | Type    | Options     |
-| ----------------- | ------- | ----------- |
-| name              | string  | null: false |
-| explanation       | text    | null: false |
-| category          | string  | null: false |
-| condition         | string  | null: false |
-| delivery_charge   | string  | null: false |
-| delivery_area     | string  | null: false |
-| delivery_days     | string  | null: false |
-| price_text_id     | integer | null: false |
+| Column             | Type    | Options     |
+| ------------------ | ------- | ----------- |
+| name               | string  | null: false |
+| explanation        | text    | null: false |
+| category_id        | integer | null: false |
+| condition_id       | integer | null: false |
+| delivery_charge_id | integer | null: false |
+| delivery_area_id   | integer | null: false |
+| delivery_days_id   | integer | null: false |
+| price              | integer | null: false |
 
 ### Association
 
 - belongs_to :user
-- has_many :buyers
+- has_one :buyer
 
 ## buyers テーブル
 
@@ -47,7 +46,8 @@
 ### Association
 
 - belongs_to :user
-- belongs_to :address
+- belongs_to :item
+  has_one :address
 
 ## addresses テーブル
 
