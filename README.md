@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column                | Type   | Options     |
-| --------------------- | ------ | ----------- |
-| nickname              | string | null: false |
-| email                 | string | null: false |
-| encrypted_password    | string | null: false |
-| first_name            | string | null: false |
-| last_name             | string | null: false |
-| first_name_kana       | string | null: false |
-| last_name_kana        | string | null: false |
-| birthday              | date   | null: false |
+| Column                | Type   | Options                   |
+| --------------------- | ------ | ------------------------- |
+| nickname              | string | null: false               |
+| email                 | string | null: false, unique: true |
+| encrypted_password    | string | null: false               |
+| first_name            | string | null: false               |
+| last_name             | string | null: false               |
+| first_name_kana       | string | null: false               |
+| last_name_kana        | string | null: false               |
+| birthday              | date   | null: false               |
 
 ### Association
 
@@ -51,14 +51,15 @@
 
 ## addresses テーブル
 
-| Column         | Type    | Options     |
-| -------------- | ------- | ----------- |
-| postal_code    | string  | null: false |
-| prefectures_id | integer | null: false |
-| manicipality   | string  | null: false |
-| house_number   | string  | null: false |
-| building_name  | string  |             |
-| phone_number   | string  | null: false |
+| Column         | Type        | Options                        |
+| -------------- | -------     | ------------------------------ |
+| postal_code    | string      | null: false                    |
+| prefectures_id | integer     | null: false                    |
+| manicipality   | string      | null: false                    |
+| house_number   | string      | null: false                    |
+| building_name  | string      |                                |
+| phone_number   | string      | null: false                    |
+| buyer          | references  | null: false, foreign_key: true |
 
 ### Association
 
