@@ -66,8 +66,18 @@ RSpec.describe User, type: :model do
         another_user.valid?
         expect(another_user.errors.full_messages).to include("Email has already been taken")
       end
-      it 'passwordが半角英数混合でなければ登録できない' do
+      it 'passwordが英字のみだと登録できない' do
         @user.password = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid.")
+      end
+      it 'passwordが数字のみだと登録できない' do
+        @user.password = '111111'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password is invalid.")
+      end
+      it 'passwordは全角を含むと登録できない' do
+        @user.password = 'aaaAAA'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password is invalid.")
       end
