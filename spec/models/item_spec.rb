@@ -64,6 +64,12 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
+
+      it '売価格は、¥300~¥9,999,999の間のみ保存可能であること' do
+        @item.price = '10,999,999'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
       
       it '価格が全角数字だと出品できない'do
         @item.price = '２２２２'
