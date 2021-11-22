@@ -16,7 +16,8 @@ app/assets/stylesheets/items/new.css %>
     <%# 商品画像 %>
     <div class="img-upload">
       <div class="weight-bold-text">
-        商品画像
+       <%# 下に画像を表示させるために入れた %>
+        <%= image_tag item.image, class: 'item-image' if item.image.attached? %>
         <span class="indispensable">必須</span>
       </div>
       <div class="click-upload">
