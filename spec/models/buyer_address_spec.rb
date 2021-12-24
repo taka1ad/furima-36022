@@ -13,6 +13,9 @@ RSpec.describe BuyerAddress, type: :model do
       it 'すべての必要項目が入力された時、購入できる' do
         expect(@buyer_address).to be_valid
       end
+      it '建物名が空でも登録できること' do
+        expect(@buyer_address).to be_valid
+      end
     end
     context '購入できない時'do
       it '郵便番号は、「3桁ハイフン4桁」の半角文字列のみ保存可能であること'do
@@ -20,7 +23,12 @@ RSpec.describe BuyerAddress, type: :model do
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include("Postal code input correctly")
       end
-      it '都道府県が空だと購入できない'do
+      it '郵便番号が空では購入できない'do
+        @buyer_address.postal_code = ''
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Postal code can't be blank")
+      end
+      it '都道府県が「---」だと購入できない'do
         @buyer_address.delivery_area_id = 1
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include("Delivery area can't be blank")
@@ -44,6 +52,16 @@ RSpec.describe BuyerAddress, type: :model do
         @buyer_address.token = nil
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include("Token can't be blank")
+      end
+      it 'userが紐づいていなければ登録できない'do
+        @buyer_address.user_id = nil
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐づいていなければ登録できない'do
+        @buyer_address.item_id = nil
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

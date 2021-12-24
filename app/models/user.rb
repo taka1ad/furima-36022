@@ -3,6 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  
+  has_many :items
+  has_many :buyers
+
   validates :nickname, presence: true
 
   with_options format: { with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i, message: 'is invalid.' } do
@@ -18,4 +22,5 @@ class User < ApplicationRecord
   end
   
   validates :birthday, presence: true
+  
 end
