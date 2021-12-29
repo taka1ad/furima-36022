@@ -43,10 +43,25 @@ RSpec.describe BuyerAddress, type: :model do
         @buyer_address.valid?
         expect(@buyer_address.errors.full_messages).to include("House number can't be blank")
       end
-      it '電話番号は、10桁以上11桁以内の半角数値のみ保存可能であること'do
-        @buyer_address.postal_code = '０９０-１２３４-５６７８'
+      it '電話番号は空では購入できない'do
+        @buyer_address.phone_number = ''
         @buyer_address.valid?
-        expect(@buyer_address.errors.full_messages).to include("Postal code input correctly")
+        expect(@buyer_address.errors.full_messages).to include("Phone number can't be blank")
+      end
+      it '電話番号が9桁以下では購入できない'do
+        @buyer_address.phone_number = '090-123-567'
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号が12桁以上では購入できない'do
+        @buyer_address.phone_number = '090-1234-56789'
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it '電話番号に半角数字以外が含まれている場合は購入できない'do
+        @buyer_address.phone_number = '０９０-１２３４-５６７８'
+        @buyer_address.valid?
+        expect(@buyer_address.errors.full_messages).to include("Phone number is invalid")
       end
       it "tokenが空では登録できないこと" do
         @buyer_address.token = nil
